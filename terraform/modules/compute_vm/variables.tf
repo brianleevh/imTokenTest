@@ -61,12 +61,6 @@ variable "boot_disk_type" {
   default = "pd-balanced"
 }
 
-variable "boot_disk_image" {
-  type = string
-  description = "Boot Disk Image"
-  default = "centos-7"
-}
-
 variable "boot_disk_size" {
   type = number
   description = "Boot Disk Size (GB)"

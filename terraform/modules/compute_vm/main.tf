@@ -12,6 +12,7 @@ resource "google_compute_instance" "compute_vm" {
 #!/bin/bash -ex
 sed -i 's/PermitRootLogin no/PermitRootLogin prohibit-password/g' /etc/ssh/sshd_config
 service sshd restart || service ssh restart
+mkdir /data && mkfs.ext4 -F /dev/sdb && mount /dev/sdb /data && echo '/dev/sdb /data ext4 defaults,nofail 0 2' | tee -a /etc/fstab
   EOT
 
   boot_disk {
@@ -43,7 +44,7 @@ resource "google_compute_disk" "boot_disk" {
   name  = "${var.prefix_name}-${var.name}-boot"
   type  = var.boot_disk_type
   zone  = var.region_zone
-  image = var.boot_disk_image
+  image = "centos-7"
   size  = var.boot_disk_size
   labels = {
     environment = var.environment
