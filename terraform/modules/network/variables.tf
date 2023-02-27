@@ -17,3 +17,8 @@ variable "private_subnet_cidr" {
   type        = string
   description = "Private Subnet CIDR Range"
 }
+
+variable "whitelisted_ip_list" {
+  type = list(string)
+  description = "Whitelisetd IP List to the Network"
+}
