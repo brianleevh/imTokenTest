@@ -5,32 +5,18 @@ resource "google_compute_network" "vpc_network" {
   mtu                             = 1460
 }
 
-resource "google_compute_subnetwork" "pub_subnet_a" {
-  name          = "${var.prefix_name}-pub-subnet-a"
+resource "google_compute_subnetwork" "pub_subnet" {
+  name          = "${var.prefix_name}-pub-subnet"
   region        = var.region
   network       = google_compute_network.vpc_network.id
-  ip_cidr_range = var.public_subnet_cidr_a
+  ip_cidr_range = var.public_subnet_cidr
 }
 
-resource "google_compute_subnetwork" "pub_subnet_b" {
-  name          = "${var.prefix_name}-pub-subnet-b"
+resource "google_compute_subnetwork" "priv_subnet" {
+  name          = "${var.prefix_name}-priv-subnet"
   region        = var.region
   network       = google_compute_network.vpc_network.id
-  ip_cidr_range = var.public_subnet_cidr_b
-}
-
-resource "google_compute_subnetwork" "priv_subnet_a" {
-  name          = "${var.prefix_name}-priv-subnet-a"
-  region        = var.region
-  network       = google_compute_network.vpc_network.id
-  ip_cidr_range = var.private_subnet_cidr_a
-}
-
-resource "google_compute_subnetwork" "priv_subnet_b" {
-  name          = "${var.prefix_name}-priv-subnet-b"
-  region        = var.region
-  network       = google_compute_network.vpc_network.id
-  ip_cidr_range = var.private_subnet_cidr_b
+  ip_cidr_range = var.private_subnet_cidr
 }
 
 resource "google_compute_router" "router" {
@@ -57,11 +43,7 @@ resource "google_compute_router_nat" "nat" {
   nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "LIST_OF_SUBNETWORKS"
   subnetwork {
-    name                    = google_compute_subnetwork.priv_subnet_a.id
-    source_ip_ranges_to_nat = ["ALL_IP_RANGES"]
-  }
-  subnetwork {
-    name                    = google_compute_subnetwork.priv_subnet_b.id
+    name                    = google_compute_subnetwork.priv_subnet.id
     source_ip_ranges_to_nat = ["ALL_IP_RANGES"]
   }
 
@@ -69,6 +51,8 @@ resource "google_compute_router_nat" "nat" {
     enable = true
     filter = "ERRORS_ONLY"
   }
+
+  depends_on = [google_compute_subnetwork.priv_subnet]
 }
 
 resource "google_compute_firewall" "internal_network" {
@@ -85,9 +69,7 @@ resource "google_compute_firewall" "internal_network" {
   }
 
   source_ranges = [
-    "${var.public_subnet_cidr_a}",
-    "${var.public_subnet_cidr_b}",
-    "${var.private_subnet_cidr_a}",
-    "${var.private_subnet_cidr_b}"
+    "${var.public_subnet_cidr}",
+    "${var.private_subnet_cidr}"
   ]
 }

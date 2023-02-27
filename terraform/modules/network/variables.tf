@@ -8,22 +8,12 @@ variable "region" {
   description = "Resource GCP Region"
 }
 
-variable "public_subnet_cidr_a" {
+variable "public_subnet_cidr" {
   type        = string
-  description = "Public Subnet A CIDR Range"
+  description = "Public Subnet CIDR Range"
 }
 
-variable "public_subnet_cidr_b" {
+variable "private_subnet_cidr" {
   type        = string
-  description = "Public Subnet B CIDR Range"
-}
-
-variable "private_subnet_cidr_a" {
-  type        = string
-  description = "Private Subnet A CIDR Range"
-}
-
-variable "private_subnet_cidr_b" {
-  type        = string
-  description = "Private Subnet B CIDR Range"
+  description = "Private Subnet CIDR Range"
 }
