@@ -28,23 +28,6 @@ module "bastion" {
   svc_account_email = google_service_account.compute_engine_svc.email
 }
 
-module "jumphost" {
-  source = "../../modules/compute_vm"
-
-  prefix_name       = local.prefix
-  name              = "jumphost"
-  environment       = local.environment
-  region            = local.region
-  region_zone       = local.zone_1
-  subnet_id         = module.network.public_subnet_id
-  root_sshkey       = var.root_sshkey
-  tag               = "jumphost"
-  boot_disk_size    = 50
-  data_disk_size    = 50
-  public_access     = true
-  svc_account_email = google_service_account.compute_engine_svc.email
-}
-
 module "gke" {
   source = "../../modules/container_gke"
 
