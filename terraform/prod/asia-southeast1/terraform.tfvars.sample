@@ -1,0 +1,7 @@
+public_subnet_cidr           = "10.2.0.0/24"
+private_subnet_cidr          = "10.2.1.0/24"
+root_sshkey                  = "ssh-rsa xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+whitelisted_ip_list          = ["0.0.0.0/0"]
+gke_master_ipv4_cidr_block   = "172.16.0.0/28"
+gke_cluster_ipv4_cidr_block  = "10.301.0.0/16"
+gke_services_ipv4_cidr_block = "10.302.0.0/16"
