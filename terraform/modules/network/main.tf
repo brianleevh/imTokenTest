@@ -66,7 +66,7 @@ resource "google_compute_firewall" "common_rules" {
 
   allow {
     protocol = "tcp"
-    ports    = [22]
+    ports    = [22, 80, 443]
   }
 
   source_ranges = var.whitelisted_ip_list
