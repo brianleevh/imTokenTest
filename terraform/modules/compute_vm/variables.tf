@@ -64,7 +64,7 @@ variable "boot_disk_type" {
 variable "boot_disk_size" {
   type = number
   description = "Boot Disk Size (GB)"
-  default = "100"
+  default = "50"
 }
 
 variable "data_disk_type" {
@@ -76,7 +76,7 @@ variable "data_disk_type" {
 variable "data_disk_size" {
   type = number
   description = "Data Disk Size (GB)"
-  default = "100"
+  default = "50"
 }
 
 variable "public_access" {
