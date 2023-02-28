@@ -9,42 +9,60 @@ variable "name" {
 }
 
 variable "machine_type" {
-  type = string
+  type        = string
   description = "Compute Machine Type"
-  default = "e2-standard-4"
+  default     = "e2-standard-4"
 }
 
 variable "environment" {
-  type = string
+  type        = string
   description = "Resource Environment"
 }
 
 variable "region" {
-  type = string
+  type        = string
   description = "Compute Instance Region"
 }
 
 variable "tag" {
-  type = string
+  type        = string
   description = "Tag for the Resource"
 }
 
 variable "svc_account_email" {
-  type = string
+  type        = string
   description = "GCP Service Account Email"
 }
 
 variable "svc_account_scopes" {
-  type = list(string)
+  type        = list(string)
   description = "GCP Service Account Scopes"
-  default = ["https://www.googleapis.com/auth/cloud-platform"]
+  default     = ["https://www.googleapis.com/auth/cloud-platform"]
 }
 
 variable "network_self_link" {
-  type = string
+  type        = string
   description = "Network self_link"
 }
+
 variable "subnetwork_self_link" {
-  type = string
+  type        = string
   description = "Subnetwork self_link"
+}
+
+variable "master_ipv4_cidr_block" {
+  type = string
+}
+variable "cluster_ipv4_cidr_block" {
+  type = string
+}
+variable "services_ipv4_cidr_block" {
+  type = string
+}
+
+variable "network_cidr" {
+  type = string
+}
+variable "bastion_ip" {
+  type = string
 }
